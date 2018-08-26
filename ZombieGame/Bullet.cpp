@@ -18,9 +18,9 @@ Bullet::~Bullet()
 {
 }
 
-bool Bullet::Update(const std::vector<std::string>& levelData)
+bool Bullet::Update(const std::vector<std::string>& levelData, float deltaTime)
 {
-	_position += _direction * _speed;
+	_position += _direction * _speed * deltaTime;
 	return CollideWithWorld(levelData);
 }
 
@@ -31,7 +31,7 @@ void Bullet::Draw(Rasengine::SpriteBatch & spriteBatch)
 		BULLET_RADIUS * 2, 
 		BULLET_RADIUS * 2);
 	const glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
-	Rasengine::Color color;
+	Rasengine::ColorRGBA8 color;
 	color.r = 75;
 	color.g = 75;
 	color.b = 75;

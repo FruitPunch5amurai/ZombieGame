@@ -14,13 +14,14 @@ Zombie::~Zombie()
 
 void Zombie::Update(const std::vector<std::string>& levelData,
 	std::vector<Human*>& humans,
-	std::vector<Zombie*>& zombies)
+	std::vector<Zombie*>& zombies,
+	float deltaTime)
 {
 	Human* human = GetNearestHuman(humans);
 	if (human != nullptr)
 	{
 		glm::vec2 direction = glm::normalize(human->GetPosition() - _position);
-		_position += direction * _speed;
+		_position += direction * _speed * deltaTime;
 	}
 
 
@@ -32,10 +33,7 @@ void Zombie::Init(float speed, glm::vec2 position)
 	_health = 150;
 	_speed = speed;
 	_position = position;
-	_color.r = 0;
-	_color.g = 160;
-	_color.b = 0;
-	_color.a = 255;
+	_color = Rasengine::ColorRGBA8(0, 160, 0, 255);
 }
 
 Human * Zombie::GetNearestHuman(std::vector<Human*>& humans)

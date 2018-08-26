@@ -6,6 +6,7 @@
 #include <Vertex.h>
 #include <ResourceManager.h>
 #include <iostream>
+#include <algorithm>
 #include <GL/glew.h>
 #include<Rasengine/include/Timing.h>
 #include <random>
@@ -106,20 +107,51 @@ void MainGame::initShaders() {
 
 void MainGame::gameLoop() {
 
+	const float DESIRED_FPS = 60.0f;
+	const int MAX_PHYSICS_STEPS = 6; ///< Protects from spiral of death...
 	Rasengine::FPSLimiter fpsLimiter;
-	fpsLimiter.Init(60.0f);
+	fpsLimiter.Init(DESIRED_FPS);
+
+	//Set Camera Scale
+	const float CAMERA_SCALE = 1.0f / 4.0f;
+	_camera.SetScale(CAMERA_SCALE);
+
+	//Calculate variables for Semi Fixed Time Step
+	const float MS_PER_SECOND = 1000;
+	const float DESIRED_FRAMETIME = MS_PER_SECOND/ DESIRED_FPS; ///< Number of milliseconds it takes to complete one frame
+	const float MAX_DELTA_TIME = 1.0f;
+	float previousTicks = SDL_GetTicks();
+
 	while (_gameState == GameState::PLAY)
 	{
 		fpsLimiter.Begin();
 
+		//Semi Fixed Time Step
+		float newTicks = SDL_GetTicks();
+		float frameTime = newTicks - previousTicks;
+		previousTicks = newTicks;
+		float totalDeltaTime = frameTime / DESIRED_FRAMETIME;
+
 		CheckVictory();
+
+		_inputManager.Update();
 
 		processInput();
 
-		UpdateEntities();
+		int i = 0;		///< So that we arent getting stuck in while loop when CPU Intensive
+		//Semi Fixed Time Step
+		while(totalDeltaTime > 0.0f && i < MAX_PHYSICS_STEPS)
+		{
+			float deltaTime = std::min(totalDeltaTime, MAX_DELTA_TIME);
+			
+			UpdateEntities(deltaTime);
 
-		UpdateBullets();
+			UpdateBullets(deltaTime);
 
+			totalDeltaTime -= deltaTime;
+
+			i++;
+		}
 		_camera.SetPosition(_player->GetPosition());
 
 		_camera.Update();
@@ -172,14 +204,15 @@ void MainGame::processInput() {
 
 }
 
-void MainGame::UpdateEntities()
+void MainGame::UpdateEntities(float deltaTime)
 {
 	//Update Humans
 	for (int i = 0; i < _humans.size(); i++)
 	{
 		_humans[i]->Update(_levels[_currentLevel]->GetLevelData(),
 			_humans,
-			_zombies);
+			_zombies,
+			deltaTime);
 		//Update Collisions
 		for (int j = i + 1; j < _humans.size(); j++)
 		{
@@ -191,7 +224,8 @@ void MainGame::UpdateEntities()
 	{
 		_zombies[i]->Update(_levels[_currentLevel]->GetLevelData(),
 			_humans,
-			_zombies);
+			_zombies,
+			deltaTime);
 		//Update Collisions
 		for (int j = i + 1; j < _zombies.size(); j++)
 		{
@@ -220,12 +254,12 @@ void MainGame::UpdateEntities()
 	}
 }
 
-void MainGame::UpdateBullets()
+void MainGame::UpdateBullets(float deltaTime)
 {
 	//Update and collide with world
 	for (int i = 0; i < _bullets.size();)
 	{
-		if (_bullets[i].Update(_levels[_currentLevel]->GetLevelData()))
+		if (_bullets[i].Update(_levels[_currentLevel]->GetLevelData(), deltaTime))
 		{
 			_bullets[i] = _bullets.back();
 			_bullets.pop_back();

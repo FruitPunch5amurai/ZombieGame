@@ -15,7 +15,8 @@ public:
 
 	void Update(const std::vector<std::string>& levelData,
 		std::vector<Human*>& humans,
-		std::vector<Zombie*>& zombies) override;
+		std::vector<Zombie*>& zombies,
+		float deltaTime) override;
 	void Init(float speed,glm::vec2 position, 
 		Rasengine::InputManager* inputManager,
 		Rasengine::Camera2D* camera,

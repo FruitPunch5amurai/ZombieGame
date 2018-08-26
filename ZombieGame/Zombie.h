@@ -9,7 +9,7 @@ public:
 	~Zombie();
 	virtual void Update(const std::vector<std::string>& levelData,
 		std::vector<Human*>& humans,
-		std::vector<Zombie*>& zombies);
+		std::vector<Zombie*>& zombies, float deltaTime) override;
 	void Init(float speed, glm::vec2 position);
 private:
 

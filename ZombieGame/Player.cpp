@@ -14,10 +14,7 @@ void Player::Init(float speed, glm::vec2 position, Rasengine::InputManager* inpu
 {
 	_speed = speed;
 	_position = position;
-	_color.r = 0;
-	_color.b = 185;
-	_color.g = 0;
-	_color.a = 255;
+	_color = Rasengine::ColorRGBA8(0, 0, 185, 255);
 	_inputManager = inputManager;
 	_camera = camera;
 	_bullets = bullets;
@@ -34,27 +31,28 @@ void Player::AddGun(Gun * gun)
 
 void Player::Update(const std::vector<std::string>& levelData,
 	std::vector<Human*>& humans,
-	std::vector<Zombie*>& zombies)
+	std::vector<Zombie*>& zombies,
+	float deltaTime)
 {
 	_direction.x = _direction.y = 0;
-	if (_inputManager->isKeyPressed(SDLK_w))
+	if (_inputManager->isKeyDown(SDLK_w))
 	{
-		_position.y += _speed;
+		_position.y += _speed * deltaTime;
 		_direction.y = 1;
 	}
-	else if (_inputManager->isKeyPressed(SDLK_s))
+	else if (_inputManager->isKeyDown(SDLK_s))
 	{
-		_position.y -= _speed;
+		_position.y -= _speed * deltaTime;
 		_direction.y = -1;
 	}
-	if (_inputManager->isKeyPressed(SDLK_a))
+	if (_inputManager->isKeyDown(SDLK_a))
 	{
-		_position.x -= _speed;
+		_position.x -= _speed * deltaTime;
 		_direction.x = -1;
 	}
-	else if (_inputManager->isKeyPressed(SDLK_d))
+	else if (_inputManager->isKeyDown(SDLK_d))
 	{
-		_position.x += _speed;
+		_position.x += _speed * deltaTime;
 		_direction.x = 1;
 
 	}
@@ -74,10 +72,10 @@ void Player::Update(const std::vector<std::string>& levelData,
 
 		glm::vec2 direction = glm::normalize(mouseCoords - centerPosition);
 
-		_guns[_currentGun]->Update(_inputManager->isKeyPressed(SDL_BUTTON_LEFT),
+		_guns[_currentGun]->Update(_inputManager->isKeyDown(SDL_BUTTON_LEFT),
 			centerPosition,
-			direction,*_bullets
-			);
+			direction,*_bullets,
+			deltaTime);
 	}
 	CollideWithLevel(levelData);
 }

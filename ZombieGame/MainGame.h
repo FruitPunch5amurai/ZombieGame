@@ -48,10 +48,10 @@ private:
     void processInput();
 
 	///Updates all entities
-	void UpdateEntities();
+	void UpdateEntities(float deltaTime);
 
 	///Update all bullets
-	void UpdateBullets();
+	void UpdateBullets(float deltaTime);
 
     /// Renders the game
     void drawGame();

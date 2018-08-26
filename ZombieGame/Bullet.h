@@ -13,7 +13,7 @@ public:
 	Bullet(glm::vec2 position, glm::vec2 direction, float damage, float speed);
 	~Bullet();
 
-	bool Update(const std::vector<std::string>& levelData);
+	bool Update(const std::vector<std::string>& levelData,float deltaTime);
 	void Draw(Rasengine::SpriteBatch& spriteBatch);
 	bool CollideWithEntity(Entity* entity);
 	float GetDamage() const { return _damage; }

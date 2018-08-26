@@ -26,7 +26,7 @@ Level::Level(const std::string& fileName)
 	_spriteBatch.Begin();
 
 	glm::vec4 uvRect(0.0f,0.0f,1.0f,1.0f);
-	Rasengine::Color color;
+	Rasengine::ColorRGBA8 color;
 	color.r = 255;
 	color.b = 255;
 	color.g = 255;

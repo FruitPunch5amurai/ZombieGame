@@ -1,1 +1,26 @@
-﻿  ZombieGame.vcxproj -> F:\projects\GameEngine\Debug\ZombieGame.exe
+﻿  Gun.cpp
+f:\projects\gameengine\zombiegame\gun.cpp(35): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  MainGame.cpp
+f:\projects\gameengine\zombiegame\maingame.cpp(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(34): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(74): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(75): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(86): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(123): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(130): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(161): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(187): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
+f:\projects\gameengine\zombiegame\maingame.cpp(210): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(217): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(223): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(230): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(234): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(260): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(274): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(277): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(307): warning C4018: '<': signed/unsigned mismatch
+f:\projects\gameengine\zombiegame\maingame.cpp(370): warning C4018: '<': signed/unsigned mismatch
+  Player.cpp
+  Generating Code...
+  ZombieGame.vcxproj -> F:\projects\GameEngine\Debug\ZombieGame.exe
